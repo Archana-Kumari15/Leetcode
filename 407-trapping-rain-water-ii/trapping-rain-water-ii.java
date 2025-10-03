@@ -10,8 +10,6 @@ class Solution {
 
         boolean[][] visited = new boolean[m][n];
         PriorityQueue<Cell> pq = new PriorityQueue<>();
-
-        // Add all boundary cells to the PQ
         for (int i = 0; i < m; i++) {
             pq.offer(new Cell(i, 0, heightMap[i][0]));
             pq.offer(new Cell(i, n - 1, heightMap[i][n - 1]));
@@ -35,10 +33,10 @@ class Solution {
 
                 int nh = heightMap[nr][nc];
                 if (nh < cur.h) {
-                    water += cur.h - nh;   // trap water
-                    pq.offer(new Cell(nr, nc, cur.h)); // fill up to boundary
+                    water += cur.h - nh;   
+                    pq.offer(new Cell(nr, nc, cur.h)); 
                 } else {
-                    pq.offer(new Cell(nr, nc, nh));    // new boundary
+                    pq.offer(new Cell(nr, nc, nh));    
                 }
             }
         }
