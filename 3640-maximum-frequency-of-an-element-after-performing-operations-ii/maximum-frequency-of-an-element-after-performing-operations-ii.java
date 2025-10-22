@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Solution {
     public int maxFrequency(int[] nums, int k, int numOperations) {
-        // Use long keys to avoid any possible overflow when computing i +/- k +/- 1
         HashMap<Long, Integer> mp = new HashMap<>();
         HashMap<Long, Integer> freq = new HashMap<>();
         TreeSet<Long> points = new TreeSet<>();
@@ -23,15 +22,13 @@ public class Solution {
         }
 
         int ans = 1;
-        long sum = 0; // running prefix-sum of mp entries
+        long sum = 0;
 
         for (Long curr : points) {
             sum += mp.getOrDefault(curr, 0);
             int f = freq.getOrDefault(curr, 0);
-
-            // number of other elements that can be shifted to curr is (sum - f)
             long others = sum - f;
-            if (others < 0) others = 0; // defensive: others shouldn't be negative but keep safe
+            if (others < 0) others = 0; 
 
             int extra = (int) Math.min(others, (long) numOperations);
             ans = Math.max(ans, f + extra);
