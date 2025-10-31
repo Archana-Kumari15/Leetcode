@@ -1,0 +1,18 @@
+class Solution {
+    public int[] getSneakyNumbers(int[] nums) {
+        int n = nums.length - 2;         
+        boolean[] seen = new boolean[n];
+        int[] res = new int[2];
+        int idx = 0;
+
+        for (int x : nums) {
+            if (seen[x]) {
+                res[idx++] = x;
+                if (idx == 2) break;
+            } else {
+                seen[x] = true;
+            }
+        }
+        return res;
+    }
+}
