@@ -1,10 +1,14 @@
 class Solution {
-    public int findMin(int[] nums) {
-        int n = nums.length;
-        int min = Integer.MAX_VALUE;
-        for(int i =0; i<n;i++){
-            min = Math.min(min,nums[i]);
+    public int findMin(int[] arr) {
+        int n = arr.length;
+        int lo = 0, hi = n - 1;
+      
+        while (lo <= hi) {
+            int mid = (lo + hi) / 2;
+           if(arr[lo] <= arr[hi]) return arr[lo];
+           else if(arr[mid] <= arr[hi])  hi=mid;
+           else if(arr[mid] > arr[hi])  lo = mid+1;
         }
-       return min;
+        return arr[lo];
     }
 }
