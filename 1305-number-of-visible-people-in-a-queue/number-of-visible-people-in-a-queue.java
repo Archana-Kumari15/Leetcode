@@ -12,7 +12,7 @@ class Solution {
                 st.pop();
                 count++;   
             }
-            if (!st.isEmpty()) count++;
+            if (st.size()>0) count++;
             res[i] = count;
             st.push(heights[i]);
         }
