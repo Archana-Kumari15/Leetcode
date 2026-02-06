@@ -7,8 +7,12 @@ class Solution {
                 st.pop();
             }else st.push(ch);
         }
+        if(st.size()==0) return "";
+
+        else{
         StringBuilder sb = new StringBuilder();
         for(char a : st) sb.append(a);
         return sb.toString();
+        }
     }
 }
