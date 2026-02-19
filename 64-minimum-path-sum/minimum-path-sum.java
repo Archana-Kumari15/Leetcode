@@ -10,9 +10,8 @@ class Solution {
                 }else{
                     int up = (i>0) ? cost[i-1][j] : Integer.MAX_VALUE;
                     int left = (j>0) ? cost[i][j-1] : Integer.MAX_VALUE;
-
-                    cost[i][j] = grid[i][j] + Math.min(up,left);
-                }
+                 cost[i][j] = grid[i][j] + Math.min(up,left);
+                 }
             }
         }
         return cost[m-1][n-1];
