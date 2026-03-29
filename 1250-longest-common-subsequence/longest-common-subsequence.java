@@ -9,15 +9,6 @@ class Solution {
                 else dp[i][j] = Math.max(dp[i-1][j],dp[i][j-1]);
             }
         }
-        StringBuilder str = new StringBuilder("");
-        int i = m, j = n;
-        while(i>0 && j>0){
-            if(a.charAt(i-1) == b.charAt(j-1)) str.append(a.charAt(i-1));
-            if(dp[i-1][j] > dp[i][j-1]) i--;
-            else j--;
-            }
-        str.reverse();
-        System.out.println(str);
         return dp[m][n];
     }
 }
