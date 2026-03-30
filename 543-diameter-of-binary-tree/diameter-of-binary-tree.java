@@ -1,21 +1,17 @@
 class Solution {
-    public class Int{
-        int val;
-        Int(int val){
-            this.val = val;
-        }
-    }
-    public int level(TreeNode root,Int dia){
+    public int level(TreeNode root,Map<TreeNode,Integer> dp){
         if(root == null) return 0;
-        int leftlevel = level(root.left,dia);
-        int rightlevel = level(root.right,dia);
-        int mydia = leftlevel + rightlevel;
-        dia.val = Math.max(dia.val,mydia);
-        return 1 + Math.max(leftlevel,rightlevel);
+        return 1 + Math.max(level(root.left,dp),level(root.right,dp));
+    }
+    public int diameter(TreeNode root,Map<TreeNode,Integer> dp) {
+        if(root == null) return 0;
+        int myDia = level(root.left,dp) + level(root.right,dp);
+        int left = diameter(root.left,dp);
+        int right = diameter(root.right,dp);
+        return Math.max(myDia,Math.max(left,right));
     }
     public int diameterOfBinaryTree(TreeNode root) {
-        Int dia = new Int(0);
-        level(root,dia);
-        return dia.val;
+        Map<TreeNode,Integer> dp = new HashMap<>();
+        return diameter(root,dp);
     }
 }
