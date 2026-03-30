@@ -1,6 +1,6 @@
 class Solution {
     public int levels(TreeNode root, int[] maxDia){
-         if(root == null) return 0;
+        if(root == null) return 0;
         // return 1 + Math.max(levels(root.left),levels(root.right));
         int leftlevel = levels(root.left,maxDia);
         int rightlevel = levels(root.right,maxDia);
