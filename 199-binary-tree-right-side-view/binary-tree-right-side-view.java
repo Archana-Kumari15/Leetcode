@@ -1,21 +1,21 @@
 class Solution {
-    public int levels(TreeNode root){
-        if(root == null) return 0;
-        return 1 + Math.max(levels(root.left),levels(root.right));
-    }
-    public void dfs(TreeNode root, int level, List<Integer> ans){
-        if(root == null) return ;
-        ans.set(level,root.val);
-        dfs(root.left,level+1,ans);
-        dfs(root.right,level+1,ans);
-    }
     public List<Integer> rightSideView(TreeNode root) {
-        int n = levels(root);
+        if(root == null) return new ArrayList<>();
         List<Integer> ans = new ArrayList<>();
-        for(int i = 0; i<n ; i++){
-            ans.add(0);
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            int n = q.size();
+            TreeNode node = null;
+            while(n>0){
+                node = q.peek();
+                q.poll();
+                if(node.left != null) q.add(node.left);
+                if(node.right != null) q.add(node.right);
+                n--;
+            }
+            ans.add(node.val);
         }
-        dfs(root,0,ans);
         return ans;
     }
 }
