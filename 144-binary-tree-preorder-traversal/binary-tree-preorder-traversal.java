@@ -1,13 +1,13 @@
 class Solution {
-    public void helper(TreeNode root, List<Integer> ans){
+    public void preorder(TreeNode root, List<Integer> result){
         if(root == null) return;
-        ans.add(root.val);
-        helper(root.left,ans);
-        helper(root.right,ans);
+        result.add(root.val);
+        preorder(root.left,result);
+        preorder(root.right,result);
     }
     public List<Integer> preorderTraversal(TreeNode root) {
-        List<Integer> ans= new ArrayList<>();
-        helper(root,ans);
-        return ans;
+        List<Integer> result = new ArrayList<>();
+        preorder(root,result);
+        return result;
     }
 }
