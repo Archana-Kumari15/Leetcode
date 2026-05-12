@@ -20,14 +20,10 @@ class Solution {
     }
     public ListNode mergeKLists(ListNode[] lists) {
         if(lists == null || lists.length == 0) return null;
-
-        int dist = 1;
-        while(dist < lists.length){
-            for(int p = 0; p + dist < lists.length; p = p + 2*dist){
-                lists[p] = mergeTwoLists(lists[p],lists[p+dist]);
-            }
-            dist *= 2;
+        ListNode result = lists[0];
+        for(int i = 1; i < lists.length ; i++){
+            result = mergeTwoLists(result,lists[i]);
         }
-        return lists[0];
+        return result;
     }
 }
