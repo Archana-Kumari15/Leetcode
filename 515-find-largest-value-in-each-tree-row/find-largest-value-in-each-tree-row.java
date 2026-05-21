@@ -1,24 +1,18 @@
 class Solution {
+    public void dfs(TreeNode root, int depth, List<Integer> res){
+        if(root == null) return;
+        if(res.size() == depth){
+            res.add(root.val);
+        }else{
+            res.set(depth,Math.max(res.get(depth),root.val));
+        }
+        
+        dfs(root.left,depth+1,res);
+        dfs(root.right,depth+1,res);
+    }
     public List<Integer> largestValues(TreeNode root) {
         List<Integer> res = new ArrayList<>();
-        if(root == null) return res;
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        while(!q.isEmpty()){
-            int n = q.size();
-            int max = Integer.MIN_VALUE;
-            for(int i = 0; i < n ; i++){
-                TreeNode node = q.poll();
-                max = Math.max(max,node.val);
-                if (node.left != null) {
-                    q.add(node.left);
-                }
-                if (node.right != null) {
-                    q.add(node.right);
-                }
-            }
-            res.add(max);
-        }
+        dfs(root,0,res);
         return res;
     }
 }
