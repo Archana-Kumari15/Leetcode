@@ -1,37 +1,25 @@
 class Solution {
-    public void makegraph(Map<Integer,List<Integer>> adj,int parent,TreeNode curr){
-        if(curr == null) return;
-        adj.putIfAbsent(curr.val, new ArrayList<>());
-        if (parent != -1) {
-            adj.get(curr.val).add(parent);
-
-            adj.putIfAbsent(parent, new ArrayList<>());
-            adj.get(parent).add(curr.val);
+    static int result;
+    public int solve(TreeNode root,int start){
+        if(root == null) return 0;
+        int lh = solve(root.left,start);
+        int rh = solve(root.right,start);
+        if(start == root.val){
+            result = Math.max(lh,rh);
+            return -1;
         }
-        makegraph(adj,curr.val,curr.left);
-        makegraph(adj,curr.val,curr.right);
-    } 
+        else if(lh>=0 && rh >= 0){
+            return Math.max(lh,rh) + 1;
+        }
+        else{
+            int d = Math.abs(lh) + Math.abs(rh);
+            result = Math.max(d,result);
+            return Math.min(lh,rh) -  1;
+        }
+    }
     public int amountOfTime(TreeNode root, int start) {
-        Map<Integer,List<Integer>> adj = new HashMap<>();
-        makegraph(adj,-1,root);
-        Queue<Integer> q = new LinkedList<>();
-        Set<Integer> visited = new HashSet<>();
-        q.add(start);
-        visited.add(start);
-        int minute = -1;
-        while(!q.isEmpty()){
-           int n = q.size();
-           for(int i = 0; i <n ; i++){
-            int curr = q.poll();
-            for(int neigh : adj.get(curr)){
-                if (!visited.contains(neigh)) {
-                    q.add(neigh);
-                    visited.add(neigh);
-                }
-            }
-           }
-           minute++;
-        }
-        return minute;
+        result = Integer.MIN_VALUE;
+        solve(root,start);
+        return result;
     }
 }
