@@ -1,18 +1,23 @@
 class Solution {
-    int maxdepth = -1;
-    int bottomleft;
-    public void dfs(TreeNode root, int depth){
+    int res;
+    public void bfs(TreeNode root){
         if(root == null) return;
-        if(depth > maxdepth){
-            maxdepth = depth;
-            bottomleft = root.val;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode temp = q.poll();
+            res = temp.val;
+            if(temp.right != null){
+                q.add(temp.right);
+            }
+            if(temp.left != null){
+                q.add(temp.left);
+            }
         }
-        dfs(root.left,depth+1);
-        dfs(root.right,depth+1);
     }
     public int findBottomLeftValue(TreeNode root) {
-        bottomleft = root.val;
-        dfs(root,0);
-        return bottomleft;
+        res = 0;
+        bfs(root);
+        return res;
     }
 }
