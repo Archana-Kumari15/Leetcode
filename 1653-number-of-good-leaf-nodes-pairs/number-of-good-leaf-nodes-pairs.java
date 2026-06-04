@@ -6,7 +6,7 @@ class Solution {
             st.add(root);
         }
         if(prev != null){
-            adj.putIfAbsent(prev, new ArrayList<>());
+            //adj.putIfAbsent(prev, new ArrayList<>());
             adj.get(root).add(prev);
             adj.get(prev).add(root);
         }
