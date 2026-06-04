@@ -1,46 +1,37 @@
 class Solution {
-    public void makegraph(TreeNode root, TreeNode prev, Map<TreeNode,List<TreeNode>> adj, Set<TreeNode> st){
-        if(root == null) return;
-        adj.putIfAbsent(root, new ArrayList<>());
+    int goodleaf;
+    public List<Integer> solve(TreeNode root, int distance){
+        List<Integer> curr = new ArrayList<>();
+        if(root == null) return curr;
         if(root.left == null && root.right == null){
-            st.add(root);
+            curr.add(1);
+            return curr;
         }
-        if(prev != null){
-            //adj.putIfAbsent(prev, new ArrayList<>());
-            adj.get(root).add(prev);
-            adj.get(prev).add(root);
-        }
-        makegraph(root.left,root,adj,st);
-        makegraph(root.right,root,adj,st);
-    }
-    public int countPairs(TreeNode root, int distance) {
-        Map<TreeNode,List<TreeNode>> adj = new HashMap<>();
-        Set<TreeNode> st = new HashSet<>();
-        makegraph(root,null,adj,st);
-        int count = 0;
-        for(TreeNode leaf : st){
-            Queue<TreeNode> q = new LinkedList<>();
-            Set<TreeNode> set = new HashSet<>();
-            q.add(leaf);
-            set.add(leaf);
-            int level = 0;
-            while(!q.isEmpty() && level<=distance){
-                int n = q.size();
-                for(int i = 0; i <n ; i++){
-                    TreeNode curr = q.poll();
-                    if(curr != leaf && st.contains(curr)){
-                        count++;
-                    }
-                    for(TreeNode neigh : adj.get(curr)){
-                        if(!set.contains(neigh)){
-                            q.add(neigh);
-                            set.add(neigh);
-                        }
-                    }
+        List<Integer> leftd = solve(root.left,distance);
+        List<Integer> rightd = solve(root.right,distance);
+        for(int l : leftd){
+            for(int r : rightd){
+                if((l != 0 && r != 0) && l+r <= distance){
+                    goodleaf++;
                 }
-                level++;
             }
         }
-        return count/2;
+        
+        for(int l : leftd){
+            if(l != 0 && l+1 <= distance){
+                curr.add(l+1);
+            }
+        }
+        for(int r : rightd){
+            if(r != 0 && r+1 <= distance){
+                curr.add(r+1);
+            }
+        }
+        return curr;
+    }
+    public int countPairs(TreeNode root, int distance) {
+        goodleaf = 0;
+        solve(root,distance);
+        return goodleaf;
     }
 }
