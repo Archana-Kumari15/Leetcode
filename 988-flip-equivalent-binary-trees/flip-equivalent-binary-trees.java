@@ -6,6 +6,7 @@ class Solution {
             boolean withFlip = flipEquiv(root1.left,root2.left) && flipEquiv(root1.right,root2.right);
             boolean withoutFlip = flipEquiv(root1.left,root2.right) && flipEquiv(root1.right,root2.left);
             return withFlip || withoutFlip;
-        }else return false;
+        }
+        return false;
     }
 }
