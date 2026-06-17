@@ -1,34 +1,17 @@
 class Solution {
-    public TreeNode reverseOddLevels(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.add(root);
-        int level = 0;
-        while(!q.isEmpty()){
-            int n = q.size();
-            List<TreeNode> levelnode = new ArrayList<>();
-            for(int i = 0; i<n ; i++){
-                TreeNode temp = q.poll();
-                levelnode.add(temp);
-                if(temp.left != null){
-                    q.add(temp.left);
-                }
-                if(temp.right != null){
-                    q.add(temp.right);
-                }
-            }
+    public void solve(TreeNode l, TreeNode r, int level){
+        if(l == null) return;
+        if(r == null) return;
         if(level % 2 == 1){
-            int i = 0;
-            int j = levelnode.size()-1;
-            while(i<j){
-                int tempval = levelnode.get(i).val;
-                levelnode.get(i).val = levelnode.get(j).val;
-                levelnode.get(j).val = tempval;
-                i++;
-                j--;
-            }
-         }
-         level++;
+            int temp = l.val;
+            l.val = r.val;
+            r.val = temp;
         }
+        solve(l.left,r.right,level+1);
+        solve(l.right,r.left,level+1);
+    }
+    public TreeNode reverseOddLevels(TreeNode root) {
+        solve(root.left,root.right,1);
         return root;
     }
 }
