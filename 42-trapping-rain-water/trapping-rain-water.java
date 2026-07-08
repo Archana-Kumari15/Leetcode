@@ -5,7 +5,6 @@ class Solution {
         int j = n - 1;
         int maxleft = height[i];
         int maxright = height[j];
-        // int maxstoredWater = 0;
         int water = 0;
         while(i < j){
             if(maxleft <= maxright){
