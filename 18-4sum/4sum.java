@@ -1,32 +1,29 @@
 class Solution {
-    public List<List<Integer>> fourSum(int[] arr, int target) {
-        int n= arr.length;
-         List<List<Integer>> ans = new ArrayList<>();
-         Arrays.sort(arr);
-         for(int i=0;i<n;i++){
-            if( i!=0 && arr[i]==arr[i-1]) continue;
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> res = new ArrayList<>();
+        int n = nums.length;
+        Arrays.sort(nums);
+        for(int i = 0; i<n-3 ; i++){
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            for(int j = i+1 ; j<n-2; j++){
+                if(j>i+1 && nums[j] == nums[j-1]) continue;
+                int l = j+1;
+                int r = n-1;
+                while(l < r){
+                    long sum = (long)nums[i] + nums[j] + nums[l] + nums[r];
+                    if(sum < target) l++;
+                    else if(sum > target) r--;
+                    else{
+                        res.add(Arrays.asList(nums[i] , nums[j] , nums[l] ,nums[r]));
+                        l++;
+                        r--;
+                        while(l < r && nums[l] == nums[l-1]) l++;
+                        while(l < r && nums[r] == nums[r+1]) r--;
 
-           for(int j=i+1;j<n;j++){
-            if( j!=i+1 && arr[j]==arr[j-1]) continue; 
-             int k=j+1;
-             int l=n-1;
-             while(k<l){
-             long sum = (long)arr[i]+arr[j]+arr[k]+arr[l];
-                if(sum<target){
-                    k++;
-                }else if(sum>target){
-                    l--;
-                }else{
-                    List<Integer> temp = Arrays.asList(arr[i],arr[j],arr[k],arr[l]);
-                    ans.add(temp);
-                    k++;
-                    l--;
-                while (k < l && arr[k] == arr[k - 1]) k++;
-                while (k < l && l<n-1 && arr[l] == arr[l + 1]) l--;
+                    }
                 }
-             }
-           } 
+            }
         }
-        return ans;
+        return res;
     }
 }
