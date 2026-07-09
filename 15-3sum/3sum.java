@@ -1,29 +1,25 @@
 class Solution {
     public List<List<Integer>> threeSum(int[] nums) {
-        int n=nums.length;
-        List<List<Integer>> ans = new ArrayList<>();
+        List<List<Integer>> res = new ArrayList<>();
         Arrays.sort(nums);
-       for( int i=0;i<n;i++){
-            if(i != 0 && nums[i] == nums[i-1])  continue;
-        
-        int j=i+1;
-        int k=n-1;
-        while(j<k){
-            int sum = nums[i]+nums[j]+nums[k];
-            if(sum<0){
-                j++;
-            }else if(sum > 0){
-                k--;
-            }else{
-                List<Integer> ele= Arrays.asList(nums[i],nums[j],nums[k]);
-                ans.add(ele);
-                j++;
-                k--;
-            while(j<k && nums[j]==nums[j-1]) j++;
-            while(j<k && nums[k]==nums[k+1]) k--;
+        for(int i = 0; i<nums.length-2; i++){
+        int l = i+1;
+        int r = nums.length - 1;
+        if(i>0 && nums[i] == nums[i-1]) continue;
+        while(l < r){
+            int fixed = nums[i];
+            int need = -fixed;
+            if(nums[l] + nums[r] < need) l++;
+            else if(nums[l] + nums[r] > need) r--;
+            else{
+                res.add(Arrays.asList(nums[i],nums[l],nums[r]));
+                l++;
+                r--;
+                while(l < r && nums[l] == nums[l-1]) l++;
+                while(l < r && nums[r] == nums[r+1]) r--;
             }
+            }   
           }
-       }
-        return ans;
+        return res;
     }
 }
