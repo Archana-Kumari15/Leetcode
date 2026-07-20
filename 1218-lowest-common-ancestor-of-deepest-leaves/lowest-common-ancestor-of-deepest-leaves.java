@@ -1,24 +1,25 @@
 class Solution {
-    int maxD = 0;
-    Map<Integer,Integer> map = new HashMap<>();
-    public void depth(TreeNode root, int d){
-        if(root == null) return;
-        maxD = Math.max(maxD,d);
-        map.put(root.val,d);
-        depth(root.left,d+1);
-        depth(root.right,d+1);
-    }
-    public TreeNode lca(TreeNode root){
-        if(root == null || map.get(root.val) == maxD){
-            return root;
+    class Pair{
+        int depth;
+        TreeNode node;
+        Pair(int depth,TreeNode node){
+            this.depth = depth;
+            this.node = node;
         }
-        TreeNode left = lca(root.left);
-        TreeNode right = lca(root.right);
-        if(left != null && right != null) return root;
-        return left != null ? left : right;
+    }
+    public Pair solve(TreeNode root){
+        if(root == null) return new Pair(0,null);
+        Pair left = solve(root.left);
+        Pair right = solve(root.right);
+        if(left.depth == right.depth){
+            return new Pair(left.depth+1,root);
+        }else if(left.depth > right.depth){
+            return new Pair(left.depth+1,left.node);
+        }else{
+            return new Pair(right.depth+1,right.node);
+        }
     }
     public TreeNode lcaDeepestLeaves(TreeNode root) {
-        depth(root,0);
-        return lca(root);
+       return solve(root).node;
     }
 }
