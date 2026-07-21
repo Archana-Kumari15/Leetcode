@@ -1,24 +1,20 @@
 class Solution {
-    public int totalFruit(int[] arr) {
-        int n = arr.length, i = 0, j = 0, maxLen = 0;
-        Map <Integer,Integer> map = new HashMap<>();
-        while(j<n){
-            if(map.containsKey(arr[j]))
-             map.put(arr[j],map.get(arr[j])+1);
-             else 
-             map.put(arr[j],1);
-
-             while(map.size() > 2){
-                int freq = map.get(arr[i]);
-                if(freq == 1) map.remove(arr[i]);
-                else map.put(arr[i],freq-1);
-                i++;
-             }
-
-             int len = j-i+1;
-             maxLen = Math.max(maxLen,len);
-             j++;
+    public int totalFruit(int[] fruits) {
+        int n = fruits.length;
+        Map<Integer,Integer> map = new HashMap<>();
+        int left = 0;
+        int maxlen = 0;
+        for(int right = 0; right < n ; right++){
+            map.put(fruits[right],map.getOrDefault(fruits[right],0) + 1);
+            while(map.size() > 2){
+                map.put(fruits[left],map.getOrDefault(fruits[left],0) - 1);
+                if(map.get(fruits[left]) == 0){
+                    map.remove(fruits[left]);
+                }
+                left++;
+            }
+            maxlen = Math.max(maxlen,right-left+1);
         }
-        return maxLen;
+        return maxlen;
     }
 }
