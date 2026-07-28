@@ -6,7 +6,6 @@ class Solution {
         int currminsum = nums[0];
         int currmaxsum = nums[0];
         int totalsum = 0;
-        int ans = 0;
         for(int i = 0; i<n ; i++){
             totalsum += nums[i];
         }
