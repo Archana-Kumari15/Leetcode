@@ -1,31 +1,22 @@
 class Solution {
+
+    int count = 0;
+
     public int countSubstrings(String s) {
-        int n = s.length(), count = 0;
-        int[][] dp = new int[n][n];
-        for(int k = 0; k<n ; k++){
-            int i = 0, j = k;
-            while(j < n){
-                if( i == j){
-                    dp[i][j] = 1;
-                    count++;
-                }
-                else if(j == i+1){
-                    if(s.charAt(i) == s.charAt(j)){
-                        dp[i][j] = 1;
-                        count++;
-                    }
-                }
-                else{
-                    if(s.charAt(i) == s.charAt(j)){
-                        if(dp[i+1][j-1] == 1){
-                            dp[i][j] = 1;
-                            count++;
-                        }
-                    }
-                }
-                i++; j++;
-            }
+        for (int i = 0; i < s.length(); i++) {
+            expand(s, i, i);    
+            expand(s, i, i + 1);   
         }
         return count;
+    }
+
+    public void expand(String s, int left, int right) {
+        while (left >= 0 &&
+               right < s.length() &&
+               s.charAt(left) == s.charAt(right)) {
+            count++;
+            left--;
+            right++;
+        }
     }
 }
