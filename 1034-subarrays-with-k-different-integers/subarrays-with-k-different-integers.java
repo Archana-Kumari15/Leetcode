@@ -18,7 +18,6 @@ class Solution {
         return count;
     }
     public int subarraysWithKDistinct(int[] nums, int k) {
-        
         return atmost(nums,k) - atmost(nums,k-1);
     }
 }
