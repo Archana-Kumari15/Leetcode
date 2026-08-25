@@ -1,22 +1,25 @@
 class Solution {
-    public int compress(char[] arr) {
-        StringBuilder ans = new StringBuilder("");
-        int i=0,j=0;
-        while(j<arr.length){
-            if(arr[i] == arr[j]) j++;
-            else{
-                ans.append(arr[i]);
-                int len = j-i;
-               if(len > 1) ans.append(len);
-                i=j;
+    public int compress(char[] chars) {
+        int n = chars.length;
+        int count = 0;
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        int j = 0;
+        if(n == 1) return 1;
+        while(j < n){
+            while(j<n && chars[i] == chars[j]){
+                j++;
             }
+                count = j-i;
+                sb.append(chars[i]);
+                if(count > 1) sb.append(count);
+                i = j;
+        
         }
-         ans.append(arr[i]);
-         int len = j-i;
-         if(len > 1) ans.append(len);
-         for(i=0;i<ans.length();i++){
-            arr[i] = ans.charAt(i);
-         }
-         return ans.length();
+       
+        for(int k = 0; k < sb.length() ; k++){
+            chars[k] = sb.charAt(k);
+        }
+        return sb.length();
     }
 }
