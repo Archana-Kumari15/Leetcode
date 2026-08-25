@@ -5,7 +5,6 @@ class Solution {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         int j = 0;
-        if(n == 1) return 1;
         while(j < n){
             while(j<n && chars[i] == chars[j]){
                 j++;
